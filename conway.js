@@ -2,9 +2,12 @@ var canvas;
 var ctx;
 
 //globals
-const GRID_AMOUNT = 25;
+const GRID_AMOUNT = 38;
 const CELL_SIZE = 20;
-const SIZE = 500;
+const SIZE = 760;
+
+$('#cgame').attr('width',SIZE);
+$('#cgame').attr('height',SIZE);
 
 //used to do basic color animations, goes from 0 to 255
 var offset = 0;
@@ -15,7 +18,7 @@ var my = 0;
 
 var on = false;
 
-var speed = 200;
+var speed = 80;
 
 //gamegrid
 var grid;
@@ -27,12 +30,13 @@ const alive = 1;
 const alive_dying = 2;
 
 
-$('#cgame').click(function(e){
+$('#cgame').on('mousedown',function(e){
     var canvas = document.getElementById('cgame');
     var rect = canvas.getBoundingClientRect();
     var mx = Math.floor(Math.floor(e.clientX - rect.left)/CELL_SIZE);
     var my = Math.floor(Math.floor(e.clientY - rect.top)/CELL_SIZE);
     flipCell(mx,my);
+    setTimeout()
 });
 
 function toggleState(){
@@ -136,7 +140,7 @@ function countNeighbors(x,y){
         if (grid[x-1][y] > 0){
             alive_neighbors+=1
         } 
-        if (y < 24){
+        if (y < (GRID_AMOUNT - 1)){
             //BL
             if (grid[x-1][y+1] > 0){
                 alive_neighbors+=1
@@ -149,13 +153,13 @@ function countNeighbors(x,y){
             alive_neighbors+=1
         }
     }
-    if (y < 24){
+    if (y < (GRID_AMOUNT - 1)){
         //BM
         if (grid[x][y+1] > 0){
             alive_neighbors+=1
         }
     }
-    if (x < 24){
+    if (x < (GRID_AMOUNT - 1)){
         if (y > 0){
             //UR
             if (grid[x+1][y-1] > 0){
@@ -166,7 +170,7 @@ function countNeighbors(x,y){
         if (grid[x+1][y] > 0){
             alive_neighbors+=1
         } 
-        if (y < 24){
+        if (y < (GRID_AMOUNT - 1)){
             //BR
             if (grid[x+1][y+1] > 0){
                 alive_neighbors+=1
