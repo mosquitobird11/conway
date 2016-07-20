@@ -1,0 +1,14 @@
+.container{
+	width: 75%;
+	margin: auto;
+	text-align: center;
+	background-color:#EEEEEE;
+	border-radius: 10px;
+	border:1px solid #CCCCCC;
+	padding-bottom: 40px;
+}
+
+#cgame{
+	width: 500px;
+	height: 500px;
+}

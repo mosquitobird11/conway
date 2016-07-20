@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+        <title>Conway</title>
+		<!-- Include CSS -->
+		<link href="conway.css" rel="stylesheet">
+    </head>
+    <body onload="init();">
+    <div class="container">
+        <h2>Conway</h2>
+        <hr/><canvas id="cgame" width="500" height="500"></canvas><hr/>
+        <button onclick="toggleState()" id="toggleButton">Start Simulation</button>
+        Speed (ms delay):<input id="speedbox" type="number" value="200" />
+    </div>
+
+    <!-- Include Jquery 2.2.4 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <!-- Include Game JS -->
+    <script src="conway.js"></script>
+    </body>
+</html>
