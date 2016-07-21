@@ -11,7 +11,14 @@
         <h2>Conway</h2>
         <hr/><canvas id="cgame" width="500" height="500"></canvas><hr/>
         <button onclick="toggleState()" id="toggleButton">Start Simulation</button>
-        Speed (ms delay):<input id="speedbox" type="number" value="80" />
+        <span>Speed (ms delay):<input id="speedbox" type="number" value="80" /></span>
+        <select id="modebox">
+            <option value="B3/S23" selected="selected">Conway</option>
+            <option value="B1357/S1357">Replicator</option>
+            <option value="B3/S12">Flock</option>
+            <option value="B3/S12345">Maze</option>
+        </select>
+        <span id="moderule"></span>
     </div>
 
     <!-- Include Jquery 2.2.4 -->

@@ -29,6 +29,31 @@ const dead = 0;
 const alive = 1;
 const alive_dying = 2;
 
+var mode = "";
+var born = [];
+var stay = [];
+
+$('#modebox').on('input', function() {
+    calcMode();
+});
+
+
+function calcMode(){
+    mode = $('#modebox').val();
+    $('#moderule').text(mode);
+    temp = mode.split('/');
+    bornstring = temp[0];
+    staystring = temp[1];
+    bornN = bornstring.substring(1);
+    for (var i = 0, len = bornN.length; i < len; i++) {
+        born.push(parseInt(bornN.charAt(i)));
+    }
+    stayN = staystring.substring(1);
+    for (var i = 0, len = stayN.length; i < len; i++) {
+        stay.push(parseInt(stayN.charAt(i)));
+    }
+}
+
 
 $('#cgame').on('mousedown',function(e){
     var canvas = document.getElementById('cgame');
@@ -36,7 +61,6 @@ $('#cgame').on('mousedown',function(e){
     var mx = Math.floor(Math.floor(e.clientX - rect.left)/CELL_SIZE);
     var my = Math.floor(Math.floor(e.clientY - rect.top)/CELL_SIZE);
     flipCell(mx,my);
-    setTimeout()
 });
 
 function toggleState(){
@@ -62,6 +86,7 @@ $('#speedbox').on('input', function() {
 
 //Initialize function
 function init(){
+    calcMode();
     canvas = $('#cgame')[0];
     if (canvas.getContext){
         ctx = canvas.getContext('2d');
@@ -108,10 +133,7 @@ function checkRules(){
     for (var i = 0; i < GRID_AMOUNT; i++){
         for (var j = 0; j < GRID_AMOUNT; j++){
             if (grid[i][j] == alive){
-                if (checkUnderPopCell(i,j)){
-                    grid[i][j] = alive_dying;
-                }
-                if (checkOverPopCell(i,j)){
+                if (checkDyingCell(i,j)){
                     grid[i][j] = alive_dying;
                 }
             }else{
@@ -124,7 +146,11 @@ function checkRules(){
 }
 
 function checkNewCell(x,y){
-    return (countNeighbors(x,y) == 3);
+    count = countNeighbors(x,y)
+    if (born.indexOf(count) != -1){
+        return true;
+    }
+    return false;
 }
 
 function countNeighbors(x,y){
@@ -180,12 +206,12 @@ function countNeighbors(x,y){
     return alive_neighbors;
 }
 
-function checkUnderPopCell(x,y){
-    return (countNeighbors(x,y) < 2);
-}
-
-function checkOverPopCell(x,y){
-    return (countNeighbors(x,y) > 3);
+function checkDyingCell(x,y){
+    count = countNeighbors(x,y)
+    if (stay.indexOf(count) == -1){
+        return true;
+    }
+    return false;
 }
 
 function draw(){
